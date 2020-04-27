@@ -1,68 +1,56 @@
-import java.util.Stack;
+import java.util.Random;
 
+//Given a range [m, n] where 0 <= m <= n <= 2147483647, return the bitwise AND of all numbers in this range, inclusive.
 public class BitwiseAndOfNumbersRange {
-	public static int rangeBitwiseAnd(int m, int n) {
-        Long r = new Long((m));
-        //System.out.println(r+" : "+ Long.toBinaryString(r));
+	
+	
+	
+	public static int rangeBitwiseAnd(int m, int n) { // finds the common bits in m and n. 
+		int count=0;
+		while(m!=n) {
+			m = m>>1;
+			n = n>>1;
+			count++;
+		}
 		
-        Long prevValue = r;
-        m++;
-        while(r!=0 && m<=n && m >=0 && n >=0 ){
-        	if(!prevValue.equals(r)) {
-        		 System.out.println("m: "+(m-1)+" r:"+r + " n: "+n);
-        		 System.out.println("m: "+Integer.toBinaryString(m-1)+" r:"+Long.toBinaryString(r) + " n: "+Integer.toBinaryString(n));
-        		 prevValue = r;
-        	}
-           
-            r = r & m;
-            m++;
-           
-        }
-        return r.intValue();
+		return m<<count;
     }  
-	//58720256
-	public static void main(String args[]) {
-		int v=10;
-		int n= 
-				11
-				 
-				;
-		
-		System.out.println(Integer.toBinaryString(v));
-		v=getD(v);
-		System.out.println(v+" : "+ Integer.toBinaryString(v));
-		System.out.println(rangeBitwiseAnd(v ,n));
-		
+	
+	public static int rangeBitwiseAndBF(int m, int n) { // Brute force
+		for(int i=m; i <=n ; i++) {
+			m = m & i;
+		}
+		return m;
 	}
 	
-	public static int getD(int num) {
-		int temp=num, val=0;
-		
-		Stack<Integer> st = new Stack<Integer>();
-		while(temp!=0) {
-			st.push(temp & 1);
-			temp = temp >>1; 
-		}
-		boolean flag=false;
-		while(!st.isEmpty()) {
-			
-			if(flag == true) {
-				val = val << 1 ;
-				
-			}else if(st.peek() == 0) {
-				flag = true;
-				val = val << 1;
-			}
-			
-			else if(st.peek() == 1) {
-				val = val <<1 | 1 ;
-			}
-			//System.out.println(" peek: "+st.peek()+ " val: "+Integer.toBinaryString(val));
-			
-			st.pop();
-		}
-		System.out.println(val);
-		//if(val<num) return num;
-		return val;
+	public static void main(String args[]) {
+		StressTest();
+		int v=10;
+		int n=15;		
+		System.out.println(Integer.toBinaryString(v));
+		System.out.println(v+" : "+ Integer.toBinaryString(v)+" n:" +Integer.toBinaryString(n));
+		System.out.println(rangeBitwiseAnd(v ,n));
+	}
+
+	private static void StressTest() {
+    	Random rand = new Random();
+    	int n=0;
+    	int m =0;
+    	int val1, val2;
+    	while(true) {
+    		n = rand.nextInt(10000000)+1;
+    		m = rand.nextInt(10000000)+n;
+    		
+            val1 = rangeBitwiseAnd(n ,m);
+            val2 = rangeBitwiseAndBF(n, m);
+            System.out.println(n+" "+m);
+            if(val1 != (val2)) {
+            	System.out.println("val1: "+ val1+" Val2: "+val2);
+            }else {
+            	System.out.println("OK");
+            }
+            
+    	}
+	
 	}
 }
