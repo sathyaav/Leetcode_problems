@@ -9,7 +9,7 @@ package linkedlist;
  * problem_url:https://leetcode.com/problems/palindrome-linked-list
  * time_complexity: O(n)
  * space_complexity: O(1)
- * level: Easy
+ * level: Easy`
  */
 public class Q234_PalindromLinkedList {
 	public boolean isPalindrome(ListNode head) {

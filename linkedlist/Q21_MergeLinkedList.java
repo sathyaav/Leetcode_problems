@@ -5,10 +5,10 @@ package linkedlist;
 /**
  * @author Sathyaa
  * @time Jan. 20, 2021
- * problem_statement:
- * problem_url:
- * time_complexity:
- * space_complexity:
+ * problem_statement: Merge two sorted linked lists and return it as a sorted list. The list should be made by splicing together the nodes of the first two lists.
+ * problem_url: https://leetcode.com/problems/merge-two-sorted-lists/	
+ * time_complexity: O(n)
+ * space_complexity: O(1)
  */
 public class Q21_MergeLinkedList {
 
@@ -30,18 +30,14 @@ public class Q21_MergeLinkedList {
 			curr = curr.next;
 			
 		}
-		while(l1Curr != null) {
-			curr.next = l1Curr;
-			curr = curr.next;
-			l1Curr = l1Curr.next;
-		}
-		while(l2Curr != null) {
+		if(l1Curr == null) {
 			curr.next = l2Curr;
-			curr = curr.next;
-			l2Curr = l2Curr.next;
 		}
-		
-		return head.next;
+		if(l2Curr == null) {
+			curr.next = l1Curr;
+		}
+	
+		return l1;
     }
 	
 	
@@ -49,8 +45,8 @@ public class Q21_MergeLinkedList {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Integer[] arr1 = {};
-		Integer[] arr2 = {};
+		Integer[] arr1 = {1,3,5,7};
+		Integer[] arr2 = {1,3,4,5,6,7};
 		ListNode l1 = ListNode.convertArrayToList(arr1);
 		ListNode l2 = ListNode.convertArrayToList(arr2);
 		ListNode h = (new Q21_MergeLinkedList()).mergeTwoLists(l1, l2);
